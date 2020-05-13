@@ -1,18 +1,25 @@
 let seconds = 0;
 let minutes = 0;
 
-let startingTime = 5;
+let startingTime = 150;
 let timeString = '';
+let timerEvent;
 
-let startInt = setInterval(simpleTimer, 1000);
 
-let timerSelector = document.querySelector('#timer')
+// let startInter = setInterval(simpleCountdown, 1000);
 
-// 100 seconds - > 01 min 40 sec
-// 200 seconds - > 03 min 20 sec etc...
+const timerSelector = document.querySelector('#timer');
+const buttonSelector = document.querySelectorAll('.buttons');
+
+//toberemoved
+timerSelector.textContent = convertToMinuteSeconds(startingTime);
+
+
+//takes in raw seconds passed, returns time as a string in MM:SS format
 function convertToMinuteSeconds(seconds){  
     let minutes = Math.floor(seconds / 60);
     let remainingSeconds = seconds - minutes * 60;
+
     if (minutes.toString().length === 1){
         let minutesArray = minutes.toString().split('');
         minutesArray.unshift('0')
@@ -30,7 +37,7 @@ function convertToMinuteSeconds(seconds){
     return timeString;
 }
 
-function simpleTimer(){
+function simpleCountdown(){
     startingTime -= 1;
     timerSelector.textContent = convertToMinuteSeconds(startingTime);
     //    let convertedTime = convertToMinuteSeconds(startingTime);
@@ -39,9 +46,28 @@ function simpleTimer(){
         stopFunction();
     }
 }
-
-function stopFunction(){
-    clearInterval(startInt)
+//making this a function since declaring startInter just starts the timer immediatelly
+function startTimer(){
+    return setInterval(simpleCountdown, 1000);
+    
 }
 
-startInt;
+function stopFunction(startedTimer){
+    clearInterval(startedTimer);
+}
+
+function eventListeners(){
+    buttonSelector.forEach((button) =>{
+        button.addEventListener('click', (e) =>{
+            console.log(event.target.id);
+            if (event.target.id === 'start'){
+                timerEvent = startTimer();
+            }
+            if(event.target.id === 'stop'){
+                stopFunction(timerEvent);
+            }
+        });
+    });
+}
+
+eventListeners();
