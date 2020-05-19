@@ -1,25 +1,27 @@
 let seconds = 0;
 let minutes = 0;
 
-let startingTime = 61;
+let startingTime = 1501;
 // possible necessary step, add 1 more second to the timer, so that 00:00 can be shown. fools the user a bit tho.
 
-const workTime = 2;
-const breakTime = 2;
+let workTime = 2;
+let breakTime = 2;
 
 let timeString = '';
 let timerEvent;
 let rounds = 5;
 let currentMode = 'work';
 
+let stopAudio = new Audio('tsk.mp3')
+
+let minutesStorage = 0;
+let secondsStorage = 0;
+
 // let startInter = setInterval(simpleCountdown, 1000);
 
 const timerSelector = document.querySelector('#timer');
 const buttonSelector = document.querySelectorAll('.buttons');
-
-//toberemoved
-timerSelector.textContent = convertToMinuteSeconds(startingTime - 1);
-
+const changeSelector = document.querySelectorAll(".time");
 
 //takes in raw seconds passed, returns time as a string in MM:SS format
 function convertToMinuteSeconds(seconds){  
@@ -87,6 +89,7 @@ function startTimer(){
 }
 
 function stopFunction(startedTimer){
+    stopAudio.play()
     clearInterval(startedTimer);
 }
 
@@ -104,4 +107,29 @@ function eventListeners(){
     });
 }
 
+function changeTime(){
+    changeSelector.forEach((field) => {
+        field.addEventListener('change', (e) =>{
+            console.log(event.target.id);
+            if (event.target.id === 'minutes'){
+                minutesStorage = event.target.valueAsNumber * 60;
+            }
+            else{
+                secondsStorage = event.target.valueAsNumber;
+            }
+            startingTime = minutesStorage + secondsStorage +1;
+            timerSelector.textContent = convertToMinuteSeconds(startingTime - 1);
+        });
+    });
+}
+
+
+//     changeTime.addEventListener('click', (e) =>{
+//         console.log(event.target.valueAsNumber)
+//     });
+
+       
+
+
 eventListeners();
+changeTime();
