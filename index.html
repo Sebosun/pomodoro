@@ -3,6 +3,7 @@
 <html lang="en">
     <title>Pomodoro timer</title>
     <body>
+        <h1>Pomodro Timer</h1>
         <div class="container">
             <div id='timer'>25:00</div>
             <div class='buttons'>
@@ -11,8 +12,11 @@
             </div>
             <div class='time'>
                 <div id = 'description'>Work time: </div>
-                <input type="number" name="minutes" id="minutes" class="form-control" min="0" max="30" value="25"/>
-                <input type="number" name="seconds" id="seconds" class="form-control" min="0" max="60" value="0"/>
+                <!-- <input type="number" name="minutes" id="minutes" class="form-control" min="0" max="30" value="25"/> -->
+                <input type="number" name="work" id="work" class="form-control" min="0" max="30" value="25"/>
+                <div id = 'description'>Break time: </div>
+                <input type="number" name="break" id="break" class="form-control" min="0" max="30" value="5"/>
+                <!-- <input type="number" name="seconds" id="seconds" class="form-control" min="0" max="60" value="0"/> -->
             </div>
         </div>
     </body>

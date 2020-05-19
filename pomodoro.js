@@ -1,11 +1,15 @@
 let seconds = 0;
 let minutes = 0;
 
-let startingTime = 1501;
+let startingTime = 1;
+//let startingTime = 1501;
 // possible necessary step, add 1 more second to the timer, so that 00:00 can be shown. fools the user a bit tho.
 
-let workTime = 2;
-let breakTime = 2;
+//let workTime = 1501;
+//let breakTime = 301;
+
+let workTime = 1;
+let breakTime = 1;
 
 let timeString = '';
 let timerEvent;
@@ -52,20 +56,22 @@ function convertToMinuteSeconds(seconds){
 
 function simpleCountdown(){
     startingTime -= 1;
-    timerSelector.textContent = convertToMinuteSeconds(startingTime - 1)
+    timerSelector.textContent = convertToMinuteSeconds(startingTime-1)
 
     if (startingTime == 0){
-        timerSelector.textContent = convertToMinuteSeconds(startingTime - 1);
+        timerSelector.textContent = convertToMinuteSeconds(startingTime-1);
         if (rounds >= 1){
             if (currentMode === 'work'){
-                timerSelector.textContent = convertToMinuteSeconds(startingTime - 1)
+                stopAudio.play();
+                timerSelector.textContent = convertToMinuteSeconds(startingTime-1)
                 currentMode = 'break';
                 timerSelector.style.color = 'green';
                 startingTime = breakTime;
                 rounds -= 1;
-                timerSelector.textContent = convertToMinuteSeconds(startingTime -1);
+                timerSelector.textContent = convertToMinuteSeconds(startingTime-1);
             }
             else{
+                stopAudio.play();
                 currentMode = 'work';
                 timerSelector.style.color = 'red';
                 startingTime = workTime;
@@ -82,14 +88,15 @@ function simpleCountdown(){
         }
     }
 }
+
 //making this a function since declaring startInter just starts the timer immediatelly
 function startTimer(){
+    //clearInterval(startedTimer)
     return setInterval(simpleCountdown, 1000);
     
 }
 
 function stopFunction(startedTimer){
-    stopAudio.play()
     clearInterval(startedTimer);
 }
 
@@ -111,17 +118,28 @@ function changeTime(){
     changeSelector.forEach((field) => {
         field.addEventListener('change', (e) =>{
             console.log(event.target.id);
-            if (event.target.id === 'minutes'){
-                minutesStorage = event.target.valueAsNumber * 60;
+            if (event.target.id === 'work'){
+                workTime = event.target.valueAsNumber * 60 + 1;
             }
             else{
-                secondsStorage = event.target.valueAsNumber;
+                breakTime = event.target.valueAsNumber * 60 + 1;
             }
-            startingTime = minutesStorage + secondsStorage +1;
-            timerSelector.textContent = convertToMinuteSeconds(startingTime - 1);
-        });
+            startingTime = workTime;
+            timerSelector = convertToMinuteSeconds(startingTime - 1);
+        //     if (event.target.id === 'minutes'){
+        //         minutesStorage = event.target.valueAsNumber * 60;
+        //     }
+        //     else{
+        //         secondsStorage = event.target.valueAsNumber;
+        //     }
+        //     startingTime = minutesStorage + secondsStorage +1;
+        //     timerSelector.textContent = convertToMinuteSeconds(startingTime - 1);
+        // });
     });
+});
 }
+
+
 
 
 //     changeTime.addEventListener('click', (e) =>{

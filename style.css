@@ -8,7 +8,7 @@ body{
     width: 500px;
     margin: auto;
     text-align: center;
-    padding-top: 10rem;
+    
 }
 
 #timer{
@@ -19,4 +19,10 @@ body{
 
 #description{
     color: red;
+}
+
+h1{
+    padding-top: 10rem;
+    text-align: center;
+    color: gray;
 }
