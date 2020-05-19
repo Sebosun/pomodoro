@@ -1,15 +1,11 @@
 let seconds = 0;
 let minutes = 0;
 
-let startingTime = 1;
-//let startingTime = 1501;
+let startingTime = 1501;
 // possible necessary step, add 1 more second to the timer, so that 00:00 can be shown. fools the user a bit tho.
 
-//let workTime = 1501;
-//let breakTime = 301;
-
-let workTime = 1;
-let breakTime = 1;
+let workTime = 1501;
+let breakTime = 301;
 
 let timeString = '';
 let timerEvent;
